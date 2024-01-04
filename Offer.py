@@ -26,10 +26,10 @@ def saveOffers(offers: ['Offer'], filename: str):
         offers = list(map(lambda offer: offer.serializeToJson(), offers))
         fh.write(json.dumps(offers))
 
-def loadOffers(filename: str):
+def loadOffers(filename: str) -> [Optional['Offer']]:
     offers = []
     with open(filename, 'r') as fh:
         #load list of serialized objects
         offersStr = json.loads(fh.read())
-        offers = list(map(lambda offer: json.loads(offer), offersStr))
+        offers = list(map(lambda offer: Offer.load(offer), offersStr))
     return offers
